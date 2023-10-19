@@ -1,0 +1,154 @@
+* {
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+body {
+  background-color: #333333;
+}
+.container {
+  display: flex;
+  /*flex-wrap: wrap;*/
+}
+
+/* Seccion Lateral Izquierdo */
+.sideLeft {
+  width: 459px;
+  height: 1023px;
+  background-color: #1e213a;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.otherLocations {
+  padding-top: 42px;
+  padding-left: 56px;
+}
+
+.sectionSearchLocation {
+  width: 450px;
+  height: 10%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnSearchLocation {
+  width: 161px;
+  height: 40px;
+  padding-top: 0px;
+  font-size: 16px;
+  background-color: #6e707a;
+  color: white;
+  box-shadow: #000000 25%;
+}
+
+.myLocation {
+  padding-top: 42px;
+  padding-right: 35px;
+}
+
+.btnMyLocation {
+  width: 40px;
+  height: 40px;
+  padding-top: 0px;
+  cursor: pointer;
+  background-color: #6e707a;
+  box-shadow: #000000 25%;
+  border: none;
+  border-radius: 25px;
+}
+
+.imgTimeStatus {
+  width: 450px;
+  height: 234px;
+  display: flex;
+}
+
+.imgTimeStatus > img {
+  width: 100%;
+  height: 100%;
+  object-fit:contain;  /* Es para ajustar la calidad de la imagen REDIMENSIONAR*/
+}
+
+.statusTemperature {
+  width: 450px;
+  height: 180px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.statusTemperature > h1 {
+  height: 169.06px;
+  gap: 20px;
+  font-size: 144px;
+  color: white;
+}
+
+.statusTemperature > h4 {
+  height: 56.35px;
+  padding-top: 30px;
+  font-size: 48px;
+  color: #A09FB1;
+}
+
+.statusClima{
+  width: 450px;
+  height: 50px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.statusClima > h3 {
+  width: 100%;
+  height: 42.26px;
+  font-size: 36px;
+  color: #A09FB1;
+}
+
+.txtDate {
+  width: 450px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.txtDate > h3 {
+  width: 100%;
+  height: 21.13px;
+  font-size: 18px;
+  color: #88869D;
+}
+
+
+
+/* Seccion Principal */
+.sidePrincipal {
+  width: 981px;
+  height: 1023px;
+  padding-left: 459px;
+  rotate: -0;
+  background-color: #100e1d;
+  display: flex;
+}
+
+.sidePrincipal > h1 {
+  color: white;
+}
+
+.contenidoPrueba {
+  width: 450px;
+  height: auto;
+  color: white;
+}
