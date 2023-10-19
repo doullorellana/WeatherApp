@@ -43,38 +43,109 @@ function App() {
     console.log("Ubicación denegada.");
   };
 
-  // Funcion para Geolocalizar una ubicacion
+  // Funcion para Geolocalizar mi ubicacion
   const handleLocation = () => {
     navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
   };
 
+  // Funcion para Geolocalizar mediante la busqueda de una ubicacion
+  const handleSearchLocation = () => {
+    console.log("Buscar por medio de un lugar");
+  };
+
+  // Formateando el resultado de la Temperatura a 0 decimales
+  const temperatura = (e) => {
+    console.log(e.toFixed(0))
+    return e.toFixed(0);
+  }
+
   return (
     <>
-      <div>
-        <div>
-          <button onClick={handleLocation}>Obtener mi ubicacion actual</button>
+      <div className="container">
+        {/* Panel Izquierdo de la App */}
+        <div className="sideLeft">
+          {/* Seccion de busqueda dentro del panel izq de la pantalla */}
+          <div className="sectionSearchLocation">
+            <div className="otherLocations">
+              <button
+                onClick={handleSearchLocation}
+                className="btnSearchLocation"
+              >
+                Search for Places
+              </button>
+            </div>
+            <div className="myLocation">
+              <button onClick={handleLocation} className="btnMyLocation">
+                <img src="../src/assets/gps.svg" />
+              </button>
+            </div>
+          </div>
+          <div className="imgTimeStatus">
+            <img src="../src/assets/Shower.png" alt="" />
+          </div>
+          <div className="statusTemperature">
+            <h1>
+            {currentWeather === null ? (
+                ""
+              ) : (
+                <>{temperatura(currentWeather.main.temp)}</>
+              )}
+            </h1>
+            <h4>°C</h4>
+          </div>
+          <div className="statusClima">
+            <h3>
+              {currentWeather === null ? (
+                ""
+              ) : (
+                <>{currentWeather.weather[0].main}</>
+              )}
+            </h3>
+          </div>
+          <div className="txtDate">
+            <h3>
+              {currentWeather === null ? (
+                ""
+              ) : (
+                <>Today . {today.toDateString()} <br/><br/>
+                <img src="../src/assets/location.svg" /> {currentWeather.name}
+                </>
+              )}
+            </h3>
+          </div>
         </div>
-        <div>
-          <ul>
-            {currentWeather === null
-              ? "Da clic al boton"
-              : (
-                <>
-                  <li>API: {APIkey}</li>
-                  <li>Temperature: {currentWeather.main.temp}°C</li>
-                  <li>Clima: {currentWeather.weather[0].main}</li>
-                  <li>Descripction: {currentWeather.weather[0].description}</li>
-                  <li>Today: {today.toDateString()}</li>
-                  <li>City: {currentWeather.name}</li>
-                  <li>Temp Mín: {currentWeather.main.temp_min}</li>
-                  <li>Temp Max: {currentWeather.main.temp_max}</li>
-                  <li>Wind status: {currentWeather.wind.speed} mph</li>
-                  <li>Humidity: {currentWeather.main.humidity}%</li>
-                  <li>Visibility: {currentWeather.visibility/1000} miles</li>
-                  <li>Air Pressure: {currentWeather.main.pressure} mb</li>
-                </>  
+
+        {/* Panel Principal de la App */}
+        <div className="sidePrincipal">
+          <h1>Hello</h1>
+          <div>
+            <div className="contenidoPrueba">
+              <ul>
+                {currentWeather === null ? (
+                  "Da clic al boton"
+                ) : (
+                  <>
+                    <li>API: {APIkey}</li>
+                    <li>Temperature: {currentWeather.main.temp}°C</li>
+                    <li>Clima: {currentWeather.weather[0].main}</li>
+                    <li>
+                      Descripction: {currentWeather.weather[0].description}
+                    </li>
+                    <li>Today: {today.toDateString()}</li>
+                    <li>City: {currentWeather.name}</li>
+                    <li>Temp Mín: {currentWeather.main.temp_min}</li>
+                    <li>Temp Max: {currentWeather.main.temp_max}</li>
+                    <li>Wind status: {currentWeather.wind.speed} mph</li>
+                    <li>Humidity: {currentWeather.main.humidity}%</li>
+                    <li>
+                      Visibility: {currentWeather.visibility / 1000} miles
+                    </li>
+                    <li>Air Pressure: {currentWeather.main.pressure} mb</li>
+                  </>
                 )}
-          </ul>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </>
