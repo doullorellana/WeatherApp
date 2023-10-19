@@ -6,8 +6,8 @@ function App() {
   const APIkey = "3b6c125c1daf193d106da991d91da4cd"; // Doull Orellana
   //const APIkey = "ad4828c41afed65166d9b32f6e589015"; // Doull Orellana Prueba
   //const APIkey = 'f26a1d2c7387a78efdda84903fecbb7f';   // API Maestro Harold
-  const [lat, setLat] = useState(null);
-  const [long, setLong] = useState(null);
+  const [lat, setLat] = useState("14.4500000"); // Latitude de Comayagua, Honduras
+  const [long, setLong] = useState("-87.6333300"); // Longitud de Comayagua, Honduras
   const [currentWeather, setCurrentWeather] = useState(null);
 
   useEffect(() => {
@@ -55,9 +55,16 @@ function App() {
 
   // Formateando el resultado de la Temperatura a 0 decimales
   const temperatura = (e) => {
-    console.log(e.toFixed(0))
+    console.log(e.toFixed(0));
     return e.toFixed(0);
-  }
+  };
+
+  // Conversion Formato Fecha
+  const formatDate = () => {
+    const options = { weekday: "short", day: "numeric", month: "short" };
+    const day = new Date();
+    return day.toLocaleDateString("en-gb", options);
+  };
 
   return (
     <>
@@ -76,16 +83,27 @@ function App() {
             </div>
             <div className="myLocation">
               <button onClick={handleLocation} className="btnMyLocation">
-                <img src="../src/assets/gps.svg" />
+                <img src="public/img/gps.svg" />
               </button>
             </div>
           </div>
           <div className="imgTimeStatus">
-            <img src="../src/assets/Shower.png" alt="" />
+            {/*<img src="src/assets/Shower.png" alt="" />*/}
+            {currentWeather === null ? (
+              ""
+            ) : (
+              <>
+                <img
+                  src={`${
+                    "public/img/" + currentWeather.weather[0].icon + ".png"
+                  }`}
+                />
+              </>
+            )}
           </div>
           <div className="statusTemperature">
             <h1>
-            {currentWeather === null ? (
+              {currentWeather === null ? (
                 ""
               ) : (
                 <>{temperatura(currentWeather.main.temp)}</>
@@ -107,8 +125,10 @@ function App() {
               {currentWeather === null ? (
                 ""
               ) : (
-                <>Today . {today.toDateString()} <br/><br/>
-                <img src="../src/assets/location.svg" /> {currentWeather.name}
+                <>
+                  Today . {formatDate()} <br />
+                  <br />
+                  <img src="public/img/location.svg" /> {currentWeather.name}
                 </>
               )}
             </h3>
@@ -141,6 +161,16 @@ function App() {
                       Visibility: {currentWeather.visibility / 1000} miles
                     </li>
                     <li>Air Pressure: {currentWeather.main.pressure} mb</li>
+                    <li>
+                      {currentWeather.weather[0].icon}
+                      <img
+                        src={`${
+                          "https://openweathermap.org/img/wn/" +
+                          currentWeather.weather[0].icon +
+                          ".png"
+                        }`}
+                      />
+                    </li>
                   </>
                 )}
               </ul>
