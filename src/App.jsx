@@ -83,7 +83,7 @@ function App() {
             </div>
             <div className="myLocation">
               <button onClick={handleLocation} className="btnMyLocation">
-                <img src="/img/gps.svg" />
+                <img src="./img/gps.svg" />
               </button>
             </div>
           </div>
@@ -95,7 +95,7 @@ function App() {
               <>
                 <img
                   src={`${
-                    "/img/" + currentWeather.weather[0].icon + ".png"
+                    "./img/" + currentWeather.weather[0].icon + ".png"
                   }`}
                 />
               </>
@@ -128,7 +128,7 @@ function App() {
                 <>
                   Today . {formatDate()} <br />
                   <br />
-                  <img src="/img/location.svg" /> {currentWeather.name}
+                  <img src="./img/location.svg" /> {currentWeather.name}
                 </>
               )}
             </h3>
