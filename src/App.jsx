@@ -94,9 +94,7 @@ function App() {
             ) : (
               <>
                 <img
-                  src={`${
-                    "./img/" + currentWeather.weather[0].icon + ".png"
-                  }`}
+                  src={`${"./img/" + currentWeather.weather[0].icon + ".png"}`}
                 />
               </>
             )}
@@ -126,9 +124,19 @@ function App() {
                 ""
               ) : (
                 <>
-                  Today . {formatDate()} <br />
+                  Today{" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height=".2em"
+                    viewBox="0 0 512 512"
+                    fill="#88869D"
+                  >
+                    <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" />
+                  </svg>{" "}
+                  {formatDate()} <br />
                   <br />
-                  <img src="./img/location.svg" /> {currentWeather.name}
+                  <img src="./img/location.svg" /> {currentWeather.name},{" "}
+                  {currentWeather.sys.country}
                 </>
               )}
             </h3>
@@ -153,6 +161,7 @@ function App() {
                     </li>
                     <li>Today: {today.toDateString()}</li>
                     <li>City: {currentWeather.name}</li>
+                    <li>Country: {currentWeather.sys.country}</li>
                     <li>Temp Mín: {currentWeather.main.temp_min}</li>
                     <li>Temp Max: {currentWeather.main.temp_max}</li>
                     <li>Wind status: {currentWeather.wind.speed} mph</li>
