@@ -1,4 +1,10 @@
-function SectionPrincipal({temperature, humidity, visibility, pressure}) {
+function SectionPrincipal({ temperature, humidity, visibility, pressure }) {
+
+  const labelStyles = {
+    //padding: humidity,
+    padding: humidity * 1.85,  // Calculo del porsentaje para la Barra de Humedad
+  }
+
   return (
     <>
       <div className="sectionPronostico">
@@ -24,6 +30,9 @@ function SectionPrincipal({temperature, humidity, visibility, pressure}) {
           <div className="description">
             <h2>{humidity}</h2>
             <h3> %</h3>
+          </div>
+          <div className="animated-progress progress-blue">
+            <span style={labelStyles}></span>
           </div>
         </div>
         <div className="sectionVisibility">

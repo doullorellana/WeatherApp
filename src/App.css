@@ -312,6 +312,31 @@ body {
   font-size: 16px;
 }
 
+.animated-progress {
+  width: auto;
+  height: 20px;
+  border-radius: 5px;
+  margin: 20px 10px;
+  border: 1px solid rgb(189, 113, 113);
+  overflow: hidden;
+  justify-content: center;
+  text-align: center;
+}
+
+.animated-progress span {
+  height: 100%;
+  display: block;
+  width: 0;
+  color: rgb(255, 251, 251);
+  line-height: 30px;
+  text-align: end;
+  padding-right: 5px;
+}
+
+.progress-blue span {
+  background-color: yellow;
+}
+
 .sectionVisibility {
   position: relative;
   width: 390px;
