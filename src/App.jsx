@@ -10,7 +10,7 @@ function App() {
   const [long, setLong] = useState("-87.6333300"); // Longitud de Comayagua, Honduras
   const [currentWeather, setCurrentWeather] = useState(null);
   const [grados, setGrados] = useState(`&units=metric`); // Por defecto, buscará en °Celcius
-  const UM = "°C";
+  const [UM, setUM] = useState("°C"); // Por defecto, mostrará en °Celcius
 
   useEffect(() => {
     if (lat === null && long === null) return; // Validando vacíos antes del Fetch
@@ -58,7 +58,7 @@ function App() {
 
   // Formateando el resultado de la Temperatura a 0 decimales
   const temperatura = (e) => {
-    console.log(e.toFixed(0));
+    //console.log(e.toFixed(0));
     return e.toFixed(0);
   };
 
@@ -77,16 +77,17 @@ function App() {
 
   // Haciendo una conversion del tipo de grado a hacer la medicion
   const handleChangeCelcius = () => {
-    let gradosCelcius = "&units=metric";
-    //console.log(gradosCelcius);
-    //setGrados = gradosCelcius;
-    console.log("Grados Celcius", gradosCelcius);
+    const gradosCelcius = `&units=metric`;
+    setGrados(gradosCelcius);
+    setUM("°C");
+    console.log("Grados Celcius", gradosCelcius, setUM);
   };
 
   const handleChangeFahrenheit = () => {
-    let gradosFahrenheit = "Fahrenheit";
-    //setGrados = gradosFahrenheit;
-    console.log("Grados Fahrenheit", gradosFahrenheit);
+    const gradosFahrenheit = ``;
+    setGrados(gradosFahrenheit);
+    setUM("°F");
+    console.log("Grados Fahrenheit", gradosFahrenheit, setUM);
   };
 
   return (
@@ -217,7 +218,7 @@ function App() {
                   <div className="cardsHightlightsTemperature">
                     <div className="sectionWind">
                     <div className="title">
-                      <h1>Wind</h1>
+                      <h1>Wind status</h1>
                       </div>
                       <div className="description">
                         <h2>{temperatura(currentWeather.wind.speed)}</h2>
@@ -244,7 +245,7 @@ function App() {
                     </div>
                     <div className="sectionPressure">
                       <div className="title">
-                        <h1>Pressure</h1>
+                        <h1>Air Pressure</h1>
                       </div>
                       <div className="description">
                         <h2>{currentWeather.main.pressure}</h2>
