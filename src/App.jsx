@@ -9,6 +9,8 @@ function App() {
   const [lat, setLat] = useState("14.4500000"); // Latitude de Comayagua, Honduras
   const [long, setLong] = useState("-87.6333300"); // Longitud de Comayagua, Honduras
   const [currentWeather, setCurrentWeather] = useState(null);
+  const [grados, setGrados] = useState(`&units=metric`); // Por defecto, buscará en °Celcius
+  const UM = "°C";
 
   useEffect(() => {
     if (lat === null && long === null) return; // Validando vacíos antes del Fetch
@@ -21,14 +23,14 @@ function App() {
       // api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}         //Prediccion 5 dias, 3 horas por dia x Ciudad
       //api.openweathermap.org/data/2.5/weather?q=Tegucigalpa&appid={API key}   //Para busquedas por ciudad
 
-      const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${APIkey}&units=metric`; // Grados Celcius
+      const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${APIkey}${grados}`; // Grados Celcius ó Fahrenheit
       const res = await fetch(URL);
       const data = await res.json();
-      console.log(data);
+      //console.log(data);
       setCurrentWeather(data);
     };
     getData();
-  }, [lat, long]);
+  }, [lat, long, grados]);
 
   // Funcion que indica que hemos encontrado la ubicacion
   const handleSuccess = (dataLocation) => {
@@ -51,6 +53,7 @@ function App() {
   // Funcion para Geolocalizar mediante la busqueda de una ubicacion
   const handleSearchLocation = () => {
     console.log("Buscar por medio de un lugar");
+    // llamando al componente SideBar.jsx
   };
 
   // Formateando el resultado de la Temperatura a 0 decimales
@@ -59,11 +62,31 @@ function App() {
     return e.toFixed(0);
   };
 
+  // Formateando el resultado a 1 decimal
+  const unDecimal = (e) => {
+    //console.log(e.toFixed(1));
+    return e.toFixed(1);
+  };
+
   // Conversion Formato Fecha
   const formatDate = () => {
     const options = { weekday: "short", day: "numeric", month: "short" };
     const day = new Date();
     return day.toLocaleDateString("en-gb", options);
+  };
+
+  // Haciendo una conversion del tipo de grado a hacer la medicion
+  const handleChangeCelcius = () => {
+    let gradosCelcius = "&units=metric";
+    //console.log(gradosCelcius);
+    //setGrados = gradosCelcius;
+    console.log("Grados Celcius", gradosCelcius);
+  };
+
+  const handleChangeFahrenheit = () => {
+    let gradosFahrenheit = "Fahrenheit";
+    //setGrados = gradosFahrenheit;
+    console.log("Grados Fahrenheit", gradosFahrenheit);
   };
 
   return (
@@ -87,6 +110,12 @@ function App() {
               </button>
             </div>
           </div>
+          <div className="imgBackground_sideLeft">
+            <img
+              src="./img/Cloud-background.png"
+              alt="imgBackground_sideLeft"
+            />
+          </div>
           <div className="imgTimeStatus">
             {/*<img src="src/assets/Shower.png" alt="" />*/}
             {currentWeather === null ? (
@@ -107,7 +136,7 @@ function App() {
                 <>{temperatura(currentWeather.main.temp)}</>
               )}
             </h1>
-            <h4>°C</h4>
+            <h4>{UM}</h4>
           </div>
           <div className="statusClima">
             <h3>
@@ -133,8 +162,17 @@ function App() {
                   >
                     <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" />
                   </svg>{" "}
-                  {formatDate()} <br />
-                  <br />
+                  {formatDate()}
+                </>
+              )}
+            </h3>
+          </div>
+          <div className="txtLocation">
+            <h3>
+              {currentWeather === null ? (
+                ""
+              ) : (
+                <>
                   <img src="./img/location.svg" /> {currentWeather.name},{" "}
                   {currentWeather.sys.country}
                 </>
@@ -145,9 +183,81 @@ function App() {
 
         {/* Panel Principal de la App */}
         <div className="sidePrincipal">
-          <h1>Hello</h1>
+          {/* <h1>Hello</h1> */}
           <div>
-            <div className="contenidoPrueba">
+            <div>
+              <div className="sectionSelector_CelciusFahrenheit">
+                <div className="sectionCelcius">
+                  <button
+                    onClick={handleChangeCelcius}
+                    className="btnSectionCelcius"
+                  >
+                    <h3>°C</h3>
+                  </button>
+                </div>
+                <div className="sectionFahrenheit">
+                  <button
+                    onClick={handleChangeFahrenheit}
+                    className="btnSectionFahrenheit"
+                  >
+                    <h3>°F</h3>
+                  </button>
+                </div>
+              </div>
+              {currentWeather === null ? (
+                ""
+              ) : (
+                <>
+                  <div className="sectionPronostico">
+                    <h1>Pronostico</h1>
+                  </div>
+                  <div className="seccionHightlightsText">
+                    <h4 className="HightlightsText">Today's Hightlights</h4>
+                  </div>
+                  <div className="cardsHightlightsTemperature">
+                    <div className="sectionWind">
+                    <div className="title">
+                      <h1>Wind</h1>
+                      </div>
+                      <div className="description">
+                        <h2>{temperatura(currentWeather.wind.speed)}</h2>
+                        <h3> mph</h3>
+                      </div>
+                    </div>
+                    <div className="sectionHumidity">
+                      <div className="title">
+                        <h1>Humidity</h1>
+                      </div>
+                      <div className="description">
+                        <h2>{currentWeather.main.humidity}</h2>
+                        <h3> %</h3>
+                      </div>
+                    </div>
+                    <div className="sectionVisibility">
+                      <div className="title">
+                        <h1>Visibility</h1>
+                      </div>
+                      <div className="description">
+                        <h2>{unDecimal(currentWeather.visibility / 1000)}</h2>
+                        <h3> miles</h3>
+                      </div>
+                    </div>
+                    <div className="sectionPressure">
+                      <div className="title">
+                        <h1>Pressure</h1>
+                      </div>
+                      <div className="description">
+                        <h2>{currentWeather.main.pressure}</h2>
+                        <h3> mb</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="sectionFooter">
+                    <h5>created by Doull Orellana - devChallenges.io</h5>
+                  </div>
+                </>
+              )}
+              {/*  Contenido Informativo
               <ul>
                 {currentWeather === null ? (
                   "Da clic al boton"
@@ -183,6 +293,7 @@ function App() {
                   </>
                 )}
               </ul>
+                      */}
             </div>
           </div>
         </div>

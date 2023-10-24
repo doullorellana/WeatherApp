@@ -21,10 +21,25 @@ body {
 /* ---------------------------*/
 .sideLeft {
   width: 459px;
-  height: 860px;
+  height: 705px; /*860px*/
   background-color: #1e213a;
+  /* background-image: url('./img/Cloud-background.png'); */
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.imgBackground_sideLeft {
+  margin-top: 100px;
+  width: 459px;
+  height: auto; 
+}
+
+.imgBackground_sideLeft > img {
+  width: 100%;
+  height: auto;
+  opacity: 0.05;
+  object-fit:cover;
 }
 
 .otherLocations {
@@ -66,22 +81,25 @@ body {
 }
 
 .imgTimeStatus {
-  width: 450px;
-  height: 234px;
-  margin-top: calc(181px - 50px);
+  position: absolute;
+  width: 230px; /*450px;*/
+  height: 234x; /*234px;*/
+  margin-top: 100px; /*calc(181px - 50px); */
   display: flex;
 }
 
 .imgTimeStatus > img {
   width: 100%;
   height: 100%;
-  object-fit:contain;  /* Es para ajustar la calidad de la imagen REDIMENSIONAR*/
+  object-fit: cover;  /* Es para ajustar la calidad de la imagen REDIMENSIONAR*/
 }
 
+/* Temperatura Actual -> TEXT */
 .statusTemperature {
+  position: absolute; /*Me permite tener el Margin-Top Real de la vista web sin depender de los padres*/
   width: 450px;
   height: 180px;
-  margin-top: calc(430px - (181px + 234px));
+  margin-top: 320px; /*calc(430px - (181px + 234px));*/
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,10 +119,12 @@ body {
   color: #A09FB1;
 }
 
+/* Condicion de Clima Actual -> TEXT */
 .statusClima{
+  position: absolute;
   width: 450px;
-  height: 50px;
-  margin-top: 40px;
+  height: 40px;
+  margin-top: 530px; /*30px;*/
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -114,15 +134,17 @@ body {
 
 .statusClima > h3 {
   width: 100%;
-  height: 42.26px;
+  height: 42.26px;  
   font-size: 36px;
   color: #A09FB1;
 }
 
+/* Fechador -> TEXT */
 .txtDate {
+  position: absolute;
   width: 450px;
   height: 25px;
-  margin-top: 60px;
+  margin-top: 610px; /*40px;*/
   display: flex;
   justify-content: center;
   text-align: center;
@@ -136,25 +158,214 @@ body {
   color: #88869D;
 }
 
+/* Localizacion -> TEXT */
+.txtLocation {
+  position: absolute;
+  width: 450px;
+  height: 25px;
+  margin-top: 635px; /*40px;*/
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.txtLocation > h3 {
+  width: 100%;
+  height: 21.13px;
+  font-size: 18px;
+  color: #88869D;
+}
+
 
 /* ---------------------------*/
 /* Seccion Principal */
 /* ---------------------------*/
 .sidePrincipal {
   width: 981px;
-  height: 860px;
-  padding-left: 459px;
-  rotate: -0;
+  height: auto; /*860px*/
+  padding-left: 80px;
   background-color: #100e1d;
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .sidePrincipal > h1 {
   color: white;
 }
 
-.contenidoPrueba {
-  width: 450px;
+.sectionSelector_CelciusFahrenheit {
+  width: 100%;
   height: auto;
+  margin-top: 42px;
+  display: flex;
+  text-align: right;
+  justify-content: right;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.sectionCelcius {
+  margin-top: 0px;
+  padding-right: 20px;
+}
+
+.btnSectionCelcius {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-color: #ffffff;
+  box-shadow: #000000 25%;
+  border: none;
+  border-radius: 25px;
+}
+
+.sectionCelcius > button > h3 {
+  color: black;
+  margin-top: 4px;
+}
+
+.sectionFahrenheit {
+  margin-top: 0px;
+  padding-right: 20px;
+}
+
+.btnSectionFahrenheit {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-color: #6e707a;
+  box-shadow: #000000 25%;
+  border: none;
+  border-radius: 25px;
+}
+
+.sectionFahrenheit > button > h3 {
   color: white;
+  margin-top: 4px;
+}
+
+.sectionPronostico {
+  position:relative;
+  width: 890px;
+  height: 180px;
+  margin-top: 10px;
+  margin-right: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  justify-items: center;
+  text-align: center;
+  background-color: white;
+}
+
+.seccionHightlightsText {
+  margin-top: 20px;
+  color: white;
+  text-align: left;
+}
+
+.HightlightsText{
+  font-size: 24px;
+  text-align: left;
+  justify-content: left;
+}
+
+.cardsHightlightsTemperature{
+  gap: 1.3rem;
+  display: flex;
+  margin-top: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sectionWind {
+  position: relative;
+  width: 390px;
+  height: 180px;
+  margin-left: 0px;
+  background-color: #1E213A;
+  gap: 20px;
+}
+
+.sectionWind > h1 {
+  padding-top: 15px;
+  color: #E7E7EB;
+  font-size: 16px;
+}
+
+.sectionHumidity {
+  position: relative;
+  width: 390px;
+  height: 180px;
+  margin-left: 0px;
+  background-color: #1E213A;
+  gap: 20px;
+}
+
+.sectionHumidity > h1 {
+  padding-top: 15px;
+  color: #E7E7EB;
+  font-size: 16px;
+}
+
+.sectionVisibility {
+  position: relative;
+  width: 390px;
+  height: 100px;
+  margin-left: 0px;
+  background-color: #1E213A;
+  gap: 20px;
+}
+
+.sectionVisibility > h1 {
+  padding-top: 10px;
+  color: #E7E7EB;
+  font-size: 16px;
+}
+
+.sectionPressure {
+  position: relative;
+  width: 390px;
+  height: 100px;
+  margin-left: 0px;
+  background-color: #1E213A;
+  border: 20px;
+}
+
+.title > h1 {
+  padding-top: 10px;
+  color: #E7E7EB;
+  font-size: 16px; 
+}
+
+.description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -13px;
+}
+
+.description > h2 {
+  padding-top: 0;
+  font-size: 64px;
+  width:fit-content;
+  color: #E7E7EB;
+}
+
+.description > h3 {
+  padding-top: 0;
+  font-size: 36px;
+  width: fit-content;
+  color: #E7E7EB;
+}
+
+.sectionFooter > h5 {
+  padding-top: 20px;
+  padding-right: 20px;
+  color: #A09FB1;
+  font-size: 14px;
 }
