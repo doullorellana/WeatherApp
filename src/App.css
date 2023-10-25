@@ -21,7 +21,7 @@ body {
 /* ---------------------------*/
 .sideLeft {
   width: 459px;
-  height: 705px; /*860px*/
+  height: 690px; /*860px*/
   background-color: #1e213a;
   /* background-image: url('./img/Cloud-background.png'); */
   display: flex;
@@ -312,11 +312,35 @@ body {
   font-size: 16px;
 }
 
+.percentText{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 0;
+  color: #A09FB1;
+  font-size: 12px;
+}
+
+.percentText2{
+  display: flex;
+  justify-content: right;
+  margin-top: -12px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  color: #A09FB1;
+  font-size: 12px;
+}
+
 .animated-progress {
   width: auto;
-  height: 20px;
+  height: 10px;
   border-radius: 5px;
   margin: 20px 10px;
+  margin-top: -10px;
   border: 1px solid rgb(189, 113, 113);
   overflow: hidden;
   justify-content: center;
@@ -334,7 +358,7 @@ body {
 }
 
 .progress-blue span {
-  background-color: yellow;
+  background-color: #FFEC65;
 }
 
 .sectionVisibility {

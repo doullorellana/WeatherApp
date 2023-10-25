@@ -5,7 +5,7 @@ import PruebasInformativas from "./components/PruebasInformativas";
 import SideLeft from "./components/SideLeft";
 
 function App() {
-  const today = new Date();
+  // const today = new Date();
   const APIkey = "3b6c125c1daf193d106da991d91da4cd"; // Doull Orellana
   //const APIkey = "ad4828c41afed65166d9b32f6e589015"; // Doull Orellana Prueba
   //const APIkey = 'f26a1d2c7387a78efdda84903fecbb7f';   // API Maestro Harold
@@ -30,8 +30,10 @@ function App() {
   //const [lat, setLat] = useState("-34.61315"); // Latitude de Salt Lake City, UTAH USA
   //const [long, setLong] = useState("-58.37723"); // Longitud de Salt Lake City, UTAH USA
 
-  const [currentWeather, setCurrentWeather] = useState(null);
-  const [grados, setGrados] = useState(`&units=metric`); // Por defecto, buscará en °Celcius
+  const [currentWeatherC, setCurrentWeatherC] = useState(null); // Grados Celcius
+  const [currentWeatherF, setCurrentWeatherF] = useState(null); //Grados Farenheit
+  const [gradosC, setGradosC] = useState(`&units=metric`); // Por defecto, buscará en °Celcius
+  const [gradosF, setGradosF] = useState(``); // Por defecto, buscará en °Fahrenheits
   const [UM, setUM] = useState("°C"); // Por defecto, mostrará en °Celcius
 
   useEffect(() => {
@@ -45,14 +47,21 @@ function App() {
       // api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}         //Prediccion 5 dias, 3 horas por dia x Ciudad
       //api.openweathermap.org/data/2.5/weather?q=Tegucigalpa&appid={API key}   //Para busquedas por ciudad
 
-      const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${APIkey}${grados}`; // Grados Celcius ó Fahrenheit
-      const res = await fetch(URL);
-      const data = await res.json();
-      //console.log(data);
-      setCurrentWeather(data);
+      // Grados Celcuis
+      const URLC = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${APIkey}${gradosC}`; // Grados Celcius
+      const resC = await fetch(URLC);
+      const dataC = await resC.json();
+      setCurrentWeatherC(dataC);
+
+      // Grados Fahrenheits
+      const URLF = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${APIkey}${gradosF}`; // Grados Fahrenheits
+      const resF = await fetch(URLF);
+      const dataF = await resF.json();
+      //console.log(dataF);
+      setCurrentWeatherF(dataF);
     };
     getData();
-  }, [lat, long, grados]);
+  }, [lat, long]);
 
   // Funcion que indica que hemos encontrado la ubicacion
   const handleSuccess = (dataLocation) => {
@@ -101,7 +110,7 @@ function App() {
   const handleChangeCelcius = () => {
     const gradosCelcius = `&units=metric`;
     const symbolCelcuis = "°C";
-    setGrados(gradosCelcius);
+    setGradosC(gradosCelcius);
     setUM(symbolCelcuis);
     console.log("Grados Celcius", gradosCelcius, symbolCelcuis);
   };
@@ -109,7 +118,7 @@ function App() {
   const handleChangeFahrenheit = () => {
     const gradosFahrenheit = ``;
     const symbolFahrenheit = "°F";
-    setGrados(gradosFahrenheit);
+    setGradosF(gradosFahrenheit);
     setUM(symbolFahrenheit);
     console.log("Grados Fahrenheit", gradosFahrenheit, symbolFahrenheit);
   };
@@ -135,17 +144,39 @@ function App() {
               </button>
             </div>
           </div>
-          {currentWeather === null ? (
+          {currentWeatherC === null || currentWeatherC === null ? (
             ""
           ) : (
             <>
-              <SideLeft currentWeatherIcon = {`${"./img/" + currentWeather.weather[0].icon + ".png"}`}
-              temperature2 = {temperatura(currentWeather.main.temp)}
-              um = {UM}
-              currentWeatherMain = {currentWeather.weather[0].main}
-              formatFecha = {formatDate()}
-              currentWeatherName = {currentWeather.name}
-              currentWeatherCountry = {currentWeather.sys.country}/>
+              {UM === "°C" ? (
+                <>
+                  <SideLeft
+                    currentWeatherIcon={`${
+                      "./img/" + currentWeatherC.weather[0].icon + ".png"
+                    }`}
+                    temperature2={temperatura(currentWeatherC.main.temp)}
+                    um={UM}
+                    currentWeatherMain={currentWeatherC.weather[0].main}
+                    formatFecha={formatDate()}
+                    currentWeatherName={currentWeatherC.name}
+                    currentWeatherCountry={currentWeatherC.sys.country}
+                  />
+                </>
+              ) : (
+                <>
+                  <SideLeft
+                    currentWeatherIcon={`${
+                      "./img/" + currentWeatherF.weather[0].icon + ".png"
+                    }`}
+                    temperature2={temperatura(currentWeatherF.main.temp)}
+                    um={UM}
+                    currentWeatherMain={currentWeatherF.weather[0].main}
+                    formatFecha={formatDate()}
+                    currentWeatherName={currentWeatherF.name}
+                    currentWeatherCountry={currentWeatherF.sys.country}
+                  />
+                </>
+              )}
             </>
           )}
         </div>
@@ -174,16 +205,33 @@ function App() {
                   </button>
                 </div>
               </div>
-              {currentWeather === null ? (
+              {currentWeatherC === null || currentWeatherC === null ? (
                 ""
               ) : (
                 <>
-                  <SectionPrincipal
-                    temperature={temperatura(currentWeather.wind.speed)}
-                    humidity={currentWeather.main.humidity}
-                    visibility={unDecimal(currentWeather.visibility / 1000)}
-                    pressure={currentWeather.main.pressure}
-                  />
+                  {UM === "°C" ? (
+                    <>
+                      <SectionPrincipal
+                        temperature={temperatura(currentWeatherC.wind.speed)}
+                        humidity={currentWeatherC.main.humidity}
+                        visibility={unDecimal(
+                          currentWeatherC.visibility / 1000
+                        )}
+                        pressure={currentWeatherC.main.pressure}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <SectionPrincipal
+                        temperature={temperatura(currentWeatherF.wind.speed)}
+                        humidity={currentWeatherF.main.humidity}
+                        visibility={unDecimal(
+                          currentWeatherF.visibility / 1000
+                        )}
+                        pressure={currentWeatherF.main.pressure}
+                      />
+                    </>
+                  )}
                 </>
               )}
               <PruebasInformativas />
