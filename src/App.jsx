@@ -20,6 +20,8 @@ function App({ cityLocations }) {
   const [gradosF, setGradosF] = useState(``); // Por defecto, buscará en °Fahrenheits
   const [UM, setUM] = useState("°C"); // Por defecto, mostrará en °Celcius
   const [sideBar, setSideBar] = useState(false); // Por defecto se oculta el SideBar
+  const [pronosticC, setPronosticC] = useState(null);
+  const [pronosticF, setPronosticF] = useState(null);
 
   const [cityC, setCityC] = useState(null); // Utilizada para guardar el estado de la ciudad
 
@@ -47,6 +49,22 @@ function App({ cityLocations }) {
       //console.log(dataF);
       setCurrentWeatherF(dataF);
 
+      // Consumiendo API -> Grados Celcuis
+      const URLCProno = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${APIkey}${gradosC}`; // Grados Celcius Pronostico
+      const resCProno = await fetch(URLCProno);
+      const dataCProno = await resCProno.json();
+      setPronosticC(dataCProno);
+
+      //console.log(pronosticC.list);
+      //console.log(formatDate(dataCProno.list[0].dt_txt)) //Formato Fecha
+      //console.log(dataCProno.list)
+
+      // Consumiendo API -> Grados Fahrenheits
+      const URLFProno = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${APIkey}${gradosF}`; // Grados Celcius Pronostico
+      const resFProno = await fetch(URLFProno);
+      const dataFProno = await resFProno.json();
+      setPronosticF(dataFProno);
+
       if (cityC === null) {
       } else {
         // Busqueda por Ciudad
@@ -65,7 +83,7 @@ function App({ cityLocations }) {
         const dataCityF = await resCityF.json();
         setCurrentWeatherF(dataCityF);
 
-        console.log(coordCityLatC, coordCityLonC);
+        //console.log(coordCityLatC, coordCityLonC);
         setLat(coordCityLatC);
         setLong(coordCityLonC);
         setCityC(dataCityC);
@@ -136,10 +154,17 @@ function App({ cityLocations }) {
     return e.toFixed(1);
   };
 
-  // Conversion Formato Fecha
+  // Conversion Formato Fecha de hoy
   const formatDate = () => {
     const options = { weekday: "short", day: "numeric", month: "short" };
     const day = new Date();
+    return day.toLocaleDateString("en-gb", options);
+  };
+
+  // Conversion Formato Fecha Especifico
+  const formatDateSpecific = (fechas) => {
+    const options = { weekday: "short", day: "numeric", month: "short" };
+    const day = new Date(fechas);
     return day.toLocaleDateString("en-gb", options);
   };
 
@@ -263,6 +288,26 @@ function App({ cityLocations }) {
                           currentWeatherC.visibility / 1000
                         )}
                         pressure={currentWeatherC.main.pressure}
+                        um={UM}
+                        dateTomorrow={formatDateSpecific(pronosticC?.list[5].dt_txt)}
+                        imgDateTomorrow={pronosticC?.list[5].weather[0].icon}
+                        tempDateTomorrow={pronosticC?.list[5].main.temp}
+
+                        dateDay3={formatDateSpecific(pronosticC?.list[13].dt_txt)}
+                        imgDate3={pronosticC?.list[13].weather[0].icon}
+                        tempDate3={pronosticC?.list[13].main.temp}
+
+                        dateDay4={formatDateSpecific(pronosticC?.list[21].dt_txt)}
+                        imgDate4={pronosticC?.list[21].weather[0].icon}
+                        tempDate4={pronosticC?.list[21].main.temp}
+
+                        dateDay5={formatDateSpecific(pronosticC?.list[29].dt_txt)}
+                        imgDate5={pronosticC?.list[29].weather[0].icon}
+                        tempDate5={pronosticC?.list[29].main.temp}
+
+                        dateDay6={formatDateSpecific(pronosticC?.list[37].dt_txt)}
+                        imgDate6={pronosticC?.list[37].weather[0].icon}
+                        tempDate6={pronosticC?.list[37].main.temp}
                       />
                     </>
                   ) : (
@@ -274,6 +319,26 @@ function App({ cityLocations }) {
                           currentWeatherF.visibility / 1000
                         )}
                         pressure={currentWeatherF.main.pressure}
+                        um={UM}
+                        dateTomorrow={formatDateSpecific(pronosticF?.list[5].dt_txt)}
+                        imgDateTomorrow={pronosticF?.list[5].weather[0].icon}
+                        tempDateTomorrow={pronosticF?.list[5].main.temp}
+
+                        dateDay3={formatDateSpecific(pronosticF?.list[13].dt_txt)}
+                        imgDate3={pronosticF?.list[13].weather[0].icon}
+                        tempDate3={pronosticF?.list[13].main.temp}
+
+                        dateDay4={formatDateSpecific(pronosticF?.list[21].dt_txt)}
+                        imgDate4={pronosticF?.list[21].weather[0].icon}
+                        tempDate4={pronosticF?.list[21].main.temp}
+
+                        dateDay5={formatDateSpecific(pronosticF?.list[29].dt_txt)}
+                        imgDate5={pronosticF?.list[29].weather[0].icon}
+                        tempDate5={pronosticF?.list[29].main.temp}
+
+                        dateDay6={formatDateSpecific(pronosticF?.list[37].dt_txt)}
+                        imgDate6={pronosticF?.list[37].weather[0].icon}
+                        tempDate6={pronosticF?.list[37].main.temp}
                       />
                     </>
                   )}
