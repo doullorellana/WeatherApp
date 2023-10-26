@@ -3,38 +3,23 @@ import "./App.css";
 import SectionPrincipal from "./components/SectionPrincipal";
 import PruebasInformativas from "./components/PruebasInformativas";
 import SideLeft from "./components/SideLeft";
+import SideBar from "./components/SideBar";
 
-function App() {
+function App({ cityLocations }) {
   // const today = new Date();
   const APIkey = "3b6c125c1daf193d106da991d91da4cd"; // Doull Orellana
   //const APIkey = "ad4828c41afed65166d9b32f6e589015"; // Doull Orellana Prueba
   //const APIkey = 'f26a1d2c7387a78efdda84903fecbb7f';   // API Maestro Harold
-  //const [lat, setLat] = useState("14.4500000"); // Latitude de Comayagua, Honduras
-  //const [long, setLong] = useState("-87.6333300"); // Longitud de Comayagua, Honduras
-
-  //const [lat, setLat] = useState("35.6895"); // Latitude de Tokio, Japon
-  //const [long, setLong] = useState("139.69171"); // Longitud de Tokio, Japon
-
-  //const [lat, setLat] = useState("20.593684"); // Latitude de India
-  //const [long, setLong] = useState("78.96288"); // Longitud de India
-
-  //const [lat, setLat] = useState("42.84998"); // Latitude de Vitoria Gasteiz España
-  //const [long, setLong] = useState("-2.67268"); // Longitud de Vitoria Gasteiz España
-
-  //const [lat, setLat] = useState("31.76904"); // Latitude de Jerusalen
-  //const [long, setLong] = useState("35.21633"); // Longitud de Jerusalen
 
   const [lat, setLat] = useState("40.76078"); // Latitude de Salt Lake City, UTAH USA
   const [long, setLong] = useState("-111.89105"); // Longitud de Salt Lake City, UTAH USA
-
-  //const [lat, setLat] = useState("-34.61315"); // Latitude de Salt Lake City, UTAH USA
-  //const [long, setLong] = useState("-58.37723"); // Longitud de Salt Lake City, UTAH USA
 
   const [currentWeatherC, setCurrentWeatherC] = useState(null); // Grados Celcius
   const [currentWeatherF, setCurrentWeatherF] = useState(null); //Grados Farenheit
   const [gradosC, setGradosC] = useState(`&units=metric`); // Por defecto, buscará en °Celcius
   const [gradosF, setGradosF] = useState(``); // Por defecto, buscará en °Fahrenheits
   const [UM, setUM] = useState("°C"); // Por defecto, mostrará en °Celcius
+  const [sideBar, setSideBar] = useState(false); // Por defecto se oculta el SideBar
 
   useEffect(() => {
     if (lat === null && long === null) return; // Validando vacíos antes del Fetch
@@ -82,9 +67,25 @@ function App() {
   };
 
   // Funcion para Geolocalizar mediante la busqueda de una ubicacion
-  const handleSearchLocation = () => {
+  const handleSearchLocation = (l) => {
     console.log("Buscar por medio de un lugar");
-    // llamando al componente SideBar.jsx
+    setSideBar(!sideBar);
+    if (l === null) return;
+    // Validando Informacion desde el SideBar
+    // console.log(l?.target.id);ñ
+    // console.log(cityLocations[l.target.id - 1]?.ciudad)
+    // console.log(cityLocations[l.target.id - 1]?.latitude)
+    // console.log(cityLocations[l.target.id - 1]?.longitude)
+
+    //Asignando nuevas lat y long
+    const latit = cityLocations[l?.target?.id - 1]?.latitude;
+    const longit = cityLocations[l?.target?.id - 1]?.longitude;
+    if (latit == null || longit == null) {
+      return;
+    } else {
+      setLat(latit);
+      setLong(longit);
+    }
   };
 
   // Formateando el resultado de la Temperatura a 0 decimales
@@ -127,6 +128,13 @@ function App() {
     <>
       <div className="container">
         {/* Panel Izquierdo de la App */}
+        {sideBar && (
+          <SideBar
+            sideBar={sideBar}
+            closeSideBar={handleSearchLocation}
+            cityLocations={cityLocations}
+          />
+        )}
         <div className="sideLeft">
           {/* Seccion de busqueda dentro del panel izq de la pantalla */}
           <div className="sectionSearchLocation">

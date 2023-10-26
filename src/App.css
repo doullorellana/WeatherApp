@@ -80,6 +80,58 @@ body {
   border-radius: 25px;
 }
 
+/* ------------ */
+/* SIDE BAR*/
+/* ------------ */
+.sidebar {
+  position:absolute;
+  z-index:1;
+  margin-top: 0px;
+  margin-left: 0px;
+  background-color: #1E213A;
+  /* background-color: red; */
+  width: 459px;
+  height: 690px;
+  color: #E7E7EB;
+}
+
+.sidebar li {
+  list-style: none;
+  padding: 0.5rem 1rem;
+  margin: 10px 20px;
+  border: solid rgba(255, 255, 255, 0.1) 1px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 300;
+}
+
+.sidebar li:hover{
+  background-color: #fff;
+  color: #1E213A;
+}
+
+.sidebar--open{
+  transform: translateX(100%);
+}
+
+.closeSideBar {
+  justify-content: right;
+  text-align: right;
+}
+
+.closeSideBar button {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  color: #E7E7EB;
+  background-color: #1E213A;
+  box-shadow: #000000 25%;
+  border: none;
+  margin: 10px 20px;
+}
+
 .imgTimeStatus {
   position: absolute;
   width: 230px; /*450px;*/
