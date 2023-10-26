@@ -1,3 +1,4 @@
+import CardsPronostic from "./CardsPrincipal/CardsPronostic";
 import Humidity from "./CardsPrincipal/Humidity";
 import Pressure from "./CardsPrincipal/Pressure";
 import Visibility from "./CardsPrincipal/Visibility";
@@ -8,7 +9,8 @@ function SectionPrincipal({ temperature, humidity, visibility, pressure }) {
   return (
     <>
       <div className="sectionPronostico">
-        <h1>Pronostico</h1>
+        <CardsPronostic />
+        
       </div>
       <div className="seccionHightlightsText">
         <h4 className="HightlightsText">Today's Hightlights</h4>
