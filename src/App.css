@@ -292,6 +292,7 @@ body {
   width: 981px;
   height: auto; /*860px*/
   padding-left: 80px;
+  padding-right: 80px;
   background-color: #100e1d;
   display: flex;
   flex-wrap: wrap;
@@ -355,32 +356,32 @@ body {
   margin-top: 4px;
 }
 
+/*  SECTION PRONOSTIC  */
 .sectionPronostico {
-  width: 890px;
+  width: 800px;
   height: 180px;
   margin-top: 10px;
   margin-right: 20px;
-  display: grid;
-  flex-direction: column;
   justify-content: space-between;
   justify-items: center;
   text-align: center;
   background-color: #100E1D;
   gap: 0.4rem;
+  display: flex;
+  box-sizing: border-box;
+  flex-wrap: wrap;
 }
 
-.divCards {
-  display: flex;
-  flex-wrap: wrap;
+/* .divCards {
+  position: relative;
   gap: 1rem;
   justify-content: center;
   align-items: center;
   padding: 30 0;
   min-width: 50vw;
-}
+} */
 
 .pronosticCards{
-  position: absolute;
   padding: 5px 10px;
   width: 120px;
   height: 177px;
@@ -388,9 +389,16 @@ body {
   color: #E7E7EB;
   text-align: center;
   align-items: center;
-  display: flex;
-  flex-direction: column;
+}
 
+.pronosticCards > img {
+  width: 100%;
+  height: auto;
+  margin-left: 0;
+}
+
+.pronosticCards > h5{
+  font-size: 30px;
 }
 
 .seccionHightlightsText {
@@ -405,6 +413,7 @@ body {
   justify-content: left;
 }
 
+/*  SECTION PRONOSTIC  */
 .cardsHightlightsTemperature{
   gap: 1.3rem;
   display: flex;
@@ -414,6 +423,7 @@ body {
   flex-wrap: wrap;
 }
 
+/*  SECTION WIND  */
 .sectionWind {
   position: relative;
   width: 390px;
@@ -429,6 +439,7 @@ body {
   font-size: 16px;
 }
 
+/*  SECTION HUMIDITY */
 .sectionHumidity {
   position: relative;
   width: 390px;
@@ -493,6 +504,7 @@ body {
   background-color: #FFEC65;
 }
 
+/*  SECTION VISIBILITY  */
 .sectionVisibility {
   position: relative;
   width: 390px;
@@ -508,6 +520,7 @@ body {
   font-size: 16px;
 }
 
+/*  SECTION AIR PRESSURE  */
 .sectionPressure {
   position: relative;
   width: 390px;
@@ -544,6 +557,7 @@ body {
   color: #E7E7EB;
 }
 
+/*  SECTION FOOTER AREA PRINCIPAL  */
 .sectionFooter > h5 {
   padding-top: 20px;
   padding-right: 20px;

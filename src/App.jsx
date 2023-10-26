@@ -21,6 +21,9 @@ function App({ cityLocations }) {
   const [UM, setUM] = useState("°C"); // Por defecto, mostrará en °Celcius
   const [sideBar, setSideBar] = useState(false); // Por defecto se oculta el SideBar
 
+  const [data, SetData] = useState(null); // Utilizada para guardar localizacion por ciudad
+  const [cityC, setCityC] = useState(null); // Utilizada para guardar el estado de la ciudad
+
   useEffect(() => {
     if (lat === null && long === null) return; // Validando vacíos antes del Fetch
 
@@ -44,9 +47,28 @@ function App({ cityLocations }) {
       const dataF = await resF.json();
       //console.log(dataF);
       setCurrentWeatherF(dataF);
+
+      if (cityC === null) {
+      } else {
+        // Busqueda por Ciudad
+        const URLCityC = `https://api.openweathermap.org/data/2.5/weather?q=${cityC}&appid=${APIkey}${gradosC}`; // Grados Celcius  -  CITY
+        const resCityC = await fetch(URLCityC);
+        const dataCityC = await resCityC.json();
+        const coordCityLatC = dataCityC.coord.lat;
+        const coordCityLonC = dataCityC.coord.lon;
+
+        console.log(coordCityLatC, coordCityLonC);
+        //setCityC(dataCityC);
+
+        // Vuelvo a actalizar los Grados Celcuis
+        const URLC = `https://api.openweathermap.org/data/2.5/weather?lat=${coordCityLatC}&lon=${coordCityLonC}&appid=${APIkey}${gradosC}`; // Grados Celcius
+        const resC = await fetch(URLC);
+        const dataC = await resC.json();
+        setCurrentWeatherC(dataC);
+      }
     };
     getData();
-  }, [lat, long]);
+  }, [lat, long, cityC]);
 
   // Funcion que indica que hemos encontrado la ubicacion
   const handleSuccess = (dataLocation) => {
@@ -86,6 +108,16 @@ function App({ cityLocations }) {
       setLat(latit);
       setLong(longit);
     }
+  };
+
+  // Funcion busqueda por ciudad
+  const handleSearchCityLocation = (c) => {
+    c.preventDefault();
+
+    const texto = c.target[0].value;
+    console.log(texto);
+    setCityC(texto);
+    handleSearchLocation();
   };
 
   // Formateando el resultado de la Temperatura a 0 decimales
@@ -133,6 +165,7 @@ function App({ cityLocations }) {
             sideBar={sideBar}
             closeSideBar={handleSearchLocation}
             cityLocations={cityLocations}
+            searchCityLocation={handleSearchCityLocation}
           />
         )}
         <div className="sideLeft">

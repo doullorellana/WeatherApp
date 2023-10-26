@@ -1,4 +1,4 @@
-function SideBar({ Sidebar, closeSideBar, cityLocations }) {
+function SideBar({ Sidebar, closeSideBar, cityLocations, searchCityLocation }) {
   //console.log(cityLocations[3].ciudad);
   //https://api.openweathermap.org/data/2.5/weather?q=tegucigalpa&appid=3b6c125c1daf193d106da991d91da4cd
   //https://api.openweathermap.org/data/2.5/forecast?q=tegucigalpa&appid=3b6c125c1daf193d106da991d91da4cd
@@ -11,9 +11,9 @@ function SideBar({ Sidebar, closeSideBar, cityLocations }) {
             <button onClick={closeSideBar}>X</button>
           </div>
           <div className="formSearchLocation">
-            <form>
-              <input className="inputSearchLocation" type="text" />
-              <button id="btnSearch">Search</button>
+            <form onSubmit={searchCityLocation}>
+              <input className="inputSearchLocation" type="text" placeholder="ciudad, país"/>
+              <button id="btnSearch" type="submit">Search</button>
             </form>
           </div>
           {cityLocations &&
