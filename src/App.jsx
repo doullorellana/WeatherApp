@@ -21,7 +21,6 @@ function App({ cityLocations }) {
   const [UM, setUM] = useState("°C"); // Por defecto, mostrará en °Celcius
   const [sideBar, setSideBar] = useState(false); // Por defecto se oculta el SideBar
 
-  const [data, SetData] = useState(null); // Utilizada para guardar localizacion por ciudad
   const [cityC, setCityC] = useState(null); // Utilizada para guardar el estado de la ciudad
 
   useEffect(() => {
@@ -35,13 +34,13 @@ function App({ cityLocations }) {
       // api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}         //Prediccion 5 dias, 3 horas por dia x Ciudad
       //api.openweathermap.org/data/2.5/weather?q=Tegucigalpa&appid={API key}   //Para busquedas por ciudad
 
-      // Grados Celcuis
+      // Consumiendo API -> Grados Celcuis
       const URLC = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${APIkey}${gradosC}`; // Grados Celcius
       const resC = await fetch(URLC);
       const dataC = await resC.json();
       setCurrentWeatherC(dataC);
 
-      // Grados Fahrenheits
+      // Consumiendo API -> Grados Fahrenheits
       const URLF = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${APIkey}${gradosF}`; // Grados Fahrenheits
       const resF = await fetch(URLF);
       const dataF = await resF.json();
@@ -51,20 +50,25 @@ function App({ cityLocations }) {
       if (cityC === null) {
       } else {
         // Busqueda por Ciudad
+
+        // Consumiendo API -> Grados Celcuis
         const URLCityC = `https://api.openweathermap.org/data/2.5/weather?q=${cityC}&appid=${APIkey}${gradosC}`; // Grados Celcius  -  CITY
         const resCityC = await fetch(URLCityC);
         const dataCityC = await resCityC.json();
-        const coordCityLatC = dataCityC.coord.lat;
-        const coordCityLonC = dataCityC.coord.lon;
+        const coordCityLatC = dataCityC?.coord.lat;
+        const coordCityLonC = dataCityC?.coord.lon;
+        setCurrentWeatherC(dataCityC);
+
+        // Consumiendo API -> Grados Fahrenheit
+        const URLCityF = `https://api.openweathermap.org/data/2.5/weather?q=${cityC}&appid=${APIkey}${gradosF}`; // Grados Celcius  -  CITY
+        const resCityF = await fetch(URLCityF);
+        const dataCityF = await resCityF.json();
+        setCurrentWeatherF(dataCityF);
 
         console.log(coordCityLatC, coordCityLonC);
-        //setCityC(dataCityC);
-
-        // Vuelvo a actalizar los Grados Celcuis
-        const URLC = `https://api.openweathermap.org/data/2.5/weather?lat=${coordCityLatC}&lon=${coordCityLonC}&appid=${APIkey}${gradosC}`; // Grados Celcius
-        const resC = await fetch(URLC);
-        const dataC = await resC.json();
-        setCurrentWeatherC(dataC);
+        setLat(coordCityLatC);
+        setLong(coordCityLonC);
+        setCityC(dataCityC);
       }
     };
     getData();
